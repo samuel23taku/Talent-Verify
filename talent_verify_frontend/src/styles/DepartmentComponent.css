@@ -1,0 +1,12 @@
+
+
+/* Department and Employee header styling */
+.department-header,
+.employee-header {
+  font-size: 22px;
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #495057;
+  padding-bottom: 5px;
+}

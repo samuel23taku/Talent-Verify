@@ -1,0 +1,75 @@
+/* General container styling */
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* List container styling */
+.list-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
+}
+
+
+
+  /* List items styling */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+  }
+  
+  li:hover {
+    background-color: #e9ecef;
+  }
+  
+  /* Active list item styling */
+  li.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #6c757d;
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #5a6268;
+  }
+  
+  /* Paragraph styling for selection message */
+  .selection-message {
+    font-size: 16px;
+    color: #6c757d;
+    text-align: center;
+    margin-top: 20px;
+  }
