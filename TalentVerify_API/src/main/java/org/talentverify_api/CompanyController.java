@@ -11,6 +11,7 @@ import java.util.List;
 
 // Adding,Removing companies etc
 @RestController
+@CrossOrigin(origins = "http://localhost:3000") // allow requests from React app on port 3000
 @RequestMapping("/company")
 public class CompanyController {
     private final CompanyRepository companyRepository;

@@ -6,7 +6,8 @@ import EmployeeComponent from './components/EmployeeComponent';
 import ModalDialog from './components/ModalDialog';
 import CompanyService from './services/company_service';
 import createCompany from './services/company_service';
-
+import { Provider, useDispatch, useSelector } from 'react-redux';
+import store from "./state/store"
 function App() {
 
 
@@ -51,16 +52,6 @@ function App() {
   //   }
   //   setIsModalOpen(false);
   // };
-  return (
-    <div className="container">
-      <div className="list-container">
-        <CompanyComponent
-        />
-      </div>
-   
-
-   
-   
 
 {/* Todo (Open in State Manager) */}
       {/* <ModalDialog
@@ -75,8 +66,19 @@ function App() {
           onChange={(e) => setModalValue(e.target.value)}
         />
       </ModalDialog> */}
-    </div>
+    {/* </div> */}
+    // );
+  return (
+    <Provider store={store}>
+    <div className="container">
+      <div className="list-container">
+        <CompanyComponent
+        />
+      </div>
+      </div>
+    </Provider>
   );
+
 }
 
 export default App;

@@ -3,52 +3,22 @@ import React, { useState } from "react";
 import DepartmentComponent from "./DepartmentComponent";
 import fetchAllCompanies from "../services/company_service";
 import { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from 'react-redux';
 
-const initialCompanies = [
-  {
-    id: 1,
-    name: "Company A",
-    departments: [
-      { id: 1, name: "HR", employees: ["Alice", "Bob"], isSelected: false },
-      {
-        id: 2,
-        name: "Finance",
-        employees: ["Charlie", "David"],
-        isSelected: false,
-      },
-    ],
-    isSelected: false,
-  },
-  {
-    id: 2,
-    name: "Company B",
-    departments: [
-      { id: 1, name: "IT", employees: ["Eve", "Frank"], isSelected: false },
-      {
-        id: 2,
-        name: "Marketing",
-        employees: ["Grace", "Heidi"],
-        isSelected: false,
-      },
-    ],
-    isSelected: false,
-  },
-];
+
 const CompanyComponent = ({ onUpdateCompany }) => {
-  const [loading, setLoading] = useState(false); // Add a loading state
-  const [companies, setCompanies] = useState(initialCompanies);
+  const loading = useSelector((state) => state.items.loading);
+  const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setLoading(true); // Set loading to true when the effect is triggered
-    fetchAllCompanies()
+    fetchAllCompanies(dispatch)
       .then(companies => {
         setCompanies(companies);
-        setLoading(false); // Set loading to false when the request is complete
       })
       .catch(error => {
         console.error(error);
-        setLoading(false); // Set loading to false if there's an error
       });
   }, []);
 
@@ -89,7 +59,7 @@ const CompanyComponent = ({ onUpdateCompany }) => {
             className={company.isSelected ? "active" : ""}
             // onClick={() => handleSelectCompany(company)}
           >
-            {company.name}
+            {company.companyName}
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -97,6 +67,14 @@ const CompanyComponent = ({ onUpdateCompany }) => {
               }}
             >
               Edit
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onUpdateCompany(company.id, company.name);
+              }}
+            >
+              Delete
             </button>
           </li>
         ))}
