@@ -1,24 +1,134 @@
-import "../styles/ModalDialog.css"
-const ModalDialog = ({ isOpen, onClose, onSave, title, children }) => {
-    if (!isOpen) return null;
-  
-    return (
-      <div className="modal-overlay">
-        <div className="modal-container">
-          <div className="modal-header">
-            <h2>{title}</h2>
-            <button className="close-button" onClick={onClose}>&times;</button>
-          </div>
-          <div className="modal-content">
-            {children}
-          </div>
-          <div className="modal-footer">
-            <button className="modal-button" onClick={onSave}>Save</button>
-            <button className="modal-button" onClick={onClose}>Cancel</button>
-          </div>
-        </div>
-      </div>
-    );
-  };
+import Modal from "react-modal";
+import "../styles/ModalDialog.css";
 
-  export default ModalDialog;
+const ModalDialog = ({
+  isOpen,
+  onRequestClose,
+  title,
+  handleSubmit,
+  companyData,
+  setCompanyData,
+  handleFileUpload,
+}) => {
+  console.warn("Is open is ", isOpen);
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      className="modal"
+      overlayClassName="modal-overlay"
+    >
+      <h2>{title}</h2>
+      <button onClick={onRequestClose} className="close-button">
+        X
+      </button>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
+        }}
+      >
+        <div className="form-label">
+          <label className="label-text">Company Name:</label>
+          <input
+            type="text"
+            value={companyData.companyName}
+            onChange={(e) =>
+              setCompanyData({ ...companyData, companyName: e.target.value })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Registration Number:</label>
+          <input
+            type="text"
+            value={companyData.registrationNumber}
+            onChange={(e) =>
+              setCompanyData({
+                ...companyData,
+                registrationNumber: e.target.value,
+              })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Date Registered:</label>
+          <input
+            type="date"
+            value={companyData.dateRegistered}
+            onChange={(e) =>
+              setCompanyData({ ...companyData, dateRegistered: e.target.value })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Address:</label>
+          <input
+            type="text"
+            value={companyData.address}
+            onChange={(e) =>
+              setCompanyData({ ...companyData, address: e.target.value })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Contact Person:</label>
+          <input
+            type="text"
+            value={companyData.contactPerson}
+            onChange={(e) =>
+              setCompanyData({ ...companyData, contactPerson: e.target.value })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Contact Person Phone:</label>
+          <input
+            type="text"
+            value={companyData.contactPersonPhone}
+            onChange={(e) =>
+              setCompanyData({
+                ...companyData,
+                contactPersonPhone: e.target.value,
+              })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <div className="form-label">
+          <label className="label-text">Email Address:</label>
+          <input
+            type="email"
+            value={companyData.emailAddress}
+            onChange={(e) =>
+              setCompanyData({ ...companyData, emailAddress: e.target.value })
+            }
+            className="form-input"
+            required
+          />
+        </div>
+        <button type="submit" className="form-input">Submit</button>
+        <input
+          type="file"
+          accept=".json"
+          onChange={handleFileUpload}
+          className="form-input"
+        />
+      </form>
+    </Modal>
+  );
+};
+
+export default ModalDialog;

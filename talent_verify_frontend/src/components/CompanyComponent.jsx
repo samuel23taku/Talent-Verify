@@ -1,15 +1,33 @@
 import "../styles/CompanyComponent.css";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import DepartmentComponent from "./DepartmentComponent";
-import { fetchAllCompanies, createCompany, updateCompany, deleteCompany } from "../services/company_service";
+import {
+  fetchAllCompanies,
+  createCompany,
+  updateCompany,
+  deleteCompany,
+} from "../services/company_service";
+import ModalDialog from "./ModalDialog";
 
 const CompanyComponent = () => {
+  console.log("Main")
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies.data);
   const loadingCompanies = useSelector((state) => state.companies.loading);
   const errorCompanies = useSelector((state) => state.companies.error);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [companyData, setCompanyData] = useState({
+    companyName: "",
+    registrationNumber: "",
+    dateRegistered: "",
+    address: "",
+    contactPerson: "",
+    contactPersonPhone: "",
+    emailAddress: "",
+  });
+
   const [selectedCompany, setSelectedCompany] = useState(null);
 
   useEffect(() => {
@@ -21,10 +39,6 @@ const CompanyComponent = () => {
     // dispatch(fetchDepartmentsByCompany(company.id));
   };
 
-  const handleCreateCompany = (newCompany) => {
-    dispatch(createCompany(newCompany));
-  };
-
   const handleUpdateCompany = (companyId, updatedCompany) => {
     dispatch(updateCompany(companyId, updatedCompany));
   };
@@ -32,7 +46,17 @@ const CompanyComponent = () => {
   const handleDeleteCompany = (companyId) => {
     dispatch(deleteCompany(companyId));
   };
+  const handleCreateCompany = ()=>{
+    setIsModalOpen(true)
+  }
+  const handleSubmit = () => {
+    setIsModalOpen(false);
+    console.log(companyData)
+  };
 
+  const handleCloseDialog = ()=>{
+    setIsModalOpen(false)
+  }
   if (loadingCompanies) {
     return <div>Loading...</div>;
   }
@@ -76,12 +100,24 @@ const CompanyComponent = () => {
         ) : (
           <div>No companies available.</div>
         )}
-        <button onClick={() => handleCreateCompany({ name: 'New Company' })}>Create Company</button>
+        <button
+          onClick={()=>setIsModalOpen(true)}
+        >
+          Create Company
+        </button>
       </div>
-
+      <ModalDialog
+        isOpen={isModalOpen}
+        onRequestClose={handleCloseDialog}
+        title={"Create New Company"}
+        handleSubmit={handleSubmit}
+        companyData={companyData}
+        setCompanyData={setCompanyData}
+      />
       {selectedCompany && (
         <DepartmentComponent selectedCompany={selectedCompany} />
       )}
+      
     </div>
   );
 };

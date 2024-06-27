@@ -8,67 +8,15 @@ import CompanyService, { FetchAllCompanies } from './services/company_service';
 import createCompany from './services/company_service';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import store from "./state/store";
-const  App = () =>{
-  // useEffect(()=>{
-  //   console.log("Dispatching fetchAllCompanies");
-  // },[])
 
+
+const  App = () =>{
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
   const [modalValue, setModalValue] = useState('');
   const [modalType, setModalType] = useState('');
   const [modalId, setModalId] = useState(null);
 
-
-
-  // const handleUpdate = (type, id, currentValue) => {
-  //   setModalType(type);
-  //   setModalId(id);
-  //   setModalValue(currentValue);
-  //   setModalTitle(`Update ${type}`);
-  //   setIsModalOpen(true);
-  // };
-
-  // const handleSave = () => {
-  //   if (modalType === 'company') {
-  //     setCompanies((prevCompanies) =>
-  //       prevCompanies.map((company) =>
-  //         company.id === modalId ? { ...company, name: modalValue } : company
-  //       )
-  //     );
-  //   } else if (modalType === 'department') {
-  //     setSelectedCompany((prevCompany) => ({
-  //       ...prevCompany,
-  //       departments: prevCompany.departments.map((department) =>
-  //         department.id === modalId ? { ...department, name: modalValue } : department
-  //       ),
-  //     }));
-  //   } else if (modalType === 'employee') {
-  //     setSelectedDepartment((prevDepartment) => {
-  //       const updatedEmployees = prevDepartment.employees.map((employee, index) =>
-  //         index === modalId ? modalValue : employee
-  //       );
-  //       return { ...prevDepartment, employees: updatedEmployees };
-  //     });
-  //   }
-  //   setIsModalOpen(false);
-  // };
-
-{/* Todo (Open in State Manager) */}
-      {/* <ModalDialog
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onSave={handleSave}
-        title={modalTitle}
-      >
-        <input
-          type="text"
-          value={modalValue}
-          onChange={(e) => setModalValue(e.target.value)}
-        />
-      </ModalDialog> */}
-    {/* </div> */}
-    // );
   return (
     <Provider store={store}>
     <div className="container">

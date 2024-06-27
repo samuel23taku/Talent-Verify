@@ -17,6 +17,7 @@ const initialState = {
       loading: false,
       error: null,
     },
+
   };
 
 const companyReducer = (state = initialState.companies, action) => {
