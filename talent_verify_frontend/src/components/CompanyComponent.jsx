@@ -1,85 +1,87 @@
 import "../styles/CompanyComponent.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
 import DepartmentComponent from "./DepartmentComponent";
-import fetchAllCompanies from "../services/company_service";
-import { useEffect } from "react";
-import { Provider, useDispatch, useSelector } from 'react-redux';
+import { fetchAllCompanies, createCompany, updateCompany, deleteCompany } from "../services/company_service";
 
-
-const CompanyComponent = ({ onUpdateCompany }) => {
-  const loading = useSelector((state) => state.items.loading);
-  const [companies, setCompanies] = useState([]);
-  const [selectedCompany, setSelectedCompany] = useState(null);
+const CompanyComponent = () => {
   const dispatch = useDispatch();
+  const companies = useSelector((state) => state.companies.data);
+  const loadingCompanies = useSelector((state) => state.companies.loading);
+  const errorCompanies = useSelector((state) => state.companies.error);
+  
+  const [selectedCompany, setSelectedCompany] = useState(null);
 
   useEffect(() => {
-    fetchAllCompanies(dispatch)
-      .then(companies => {
-        setCompanies(companies);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+    fetchAllCompanies(dispatch);
+  }, [dispatch]);
 
   const handleSelectCompany = (company) => {
-    setCompanies((prevCompanies) =>
-      prevCompanies.map((c) =>
-        c.id === company.id
-          ? { ...c, isSelected: true }
-          : { ...c, isSelected: false }
-      )
-    );
     setSelectedCompany(company);
-    // setSelectedDepartment(null);
+    // dispatch(fetchDepartmentsByCompany(company.id));
   };
 
+  const handleCreateCompany = (newCompany) => {
+    dispatch(createCompany(newCompany));
+  };
+
+  const handleUpdateCompany = (companyId, updatedCompany) => {
+    dispatch(updateCompany(companyId, updatedCompany));
+  };
+
+  const handleDeleteCompany = (companyId) => {
+    dispatch(deleteCompany(companyId));
+  };
+
+  if (loadingCompanies) {
+    return <div>Loading...</div>;
+  }
+
+  if (errorCompanies) {
+    return <div>Error: {errorCompanies.message}</div>;
+  }
+
   return (
-    <div>
+    <div className="container">
+      <div className="list-container">
+        <h2 className="company-header">Companies</h2>
+        {companies && companies.length > 0 ? (
+          <ul>
+            {companies.map((company) => (
+              <li
+                key={company.id}
+                className={company.id === selectedCompany?.id ? "active" : ""}
+                onClick={() => handleSelectCompany(company)}
+              >
+                {company.companyName}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleUpdateCompany(company.id, company);
+                  }}
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteCompany(company.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div>No companies available.</div>
+        )}
+        <button onClick={() => handleCreateCompany({ name: 'New Company' })}>Create Company</button>
+      </div>
+
       {selectedCompany && (
-        <div className="list-container">
-          <DepartmentComponent
-          // onUpdateDepartment={(id, name) => handleUpdate('department', id, name)}
-          />
-        </div>
+        <DepartmentComponent selectedCompany={selectedCompany} />
       )}
-
-      {!selectedCompany && (
-        <p className="selection-message">
-          Please select a company to see the departments.
-        </p>
-      )}
-      <h2 className="company-header">Companies</h2>
-      {loading ?  
-              <div>Loading...</div> // Render a loading indicator while the request is being made
-      :        <ul>
-        {companies.map((company) => (
-          <li
-            key={company.id}
-            className={company.isSelected ? "active" : ""}
-            // onClick={() => handleSelectCompany(company)}
-          >
-            {company.companyName}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onUpdateCompany(company.id, company.name);
-              }}
-            >
-              Edit
-            </button>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onUpdateCompany(company.id, company.name);
-              }}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul> }
-
     </div>
   );
 };

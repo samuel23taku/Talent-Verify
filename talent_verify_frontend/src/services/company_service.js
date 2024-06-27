@@ -1,41 +1,51 @@
 import axios from "axios";
 import { BASEURL } from "./constants";
 import * as actions from "../state/actions.js";
-import { Provider, useDispatch, useSelector } from 'react-redux';
 
 const URL = `${BASEURL}/company`;
 
-const createCompany = ()=>{
+export const fetchAllCompanies = async (dispatch) => {
+  dispatch({ type: actions.FETCH_COMPANIES_REQUEST });
+//   try {
+    console.log("Executing");
+    const response = await axios.get(`${URL}/getAllCompanies`);
+    dispatch({ type: actions.FETCH_COMPANIES_SUCCESS, payload: response.data });
+//   } catch (e) {
+//     console.log("Error is ", e);
+//     dispatch({ type: actions.FETCH_COMPANIES_FAILURE });
+//   }
+};
 
-}
-// POST http://localhost:2001/company/getAllCompanies
-
-const fetchAllCompanies = async (dispatch) => {
-    dispatch({ type: actions.FETCH_COMPANIES_REQUEST });
+export const createCompany = (company) => async (dispatch) => {
+    dispatch({ type: actions.CREATE_COMPANY_REQUEST });
     try {
-      const response = await axios.post(`${URL}/getAllCompanies`);
-      console.log(response.data[0])
-      return response.data; // Return the data from the response
-    } catch (e) {
-      console.log("Error ", e)
-      return null; // Return null or an error object if there's an error
-    }
+    const response = await axios.post(`${URL}/createCompany`, company);
+    dispatch({ type: actions.CREATE_COMPANY_SUCCESS });
+} catch (error) {
+    dispatch({ type: actions.CREATE_COMPANY_FAILURE });
   }
+};
 
-export default fetchAllCompanies;
+export const updateCompany = (companyId, company) => async (dispatch) => {
 
-// import axios from "axios";
+  try {
+    dispatch({ type: actions.UPDATE_COMPANY_REQUEST });
+    const response = await axios.put(
+      `${URL}/updateCompany/${companyId}`,
+      company
+    );
+    dispatch({ type: actions.UPDATE_COMPANY_SUCCESS });
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_COMPANY_FAILURE });
+  }
+};
 
-
-// export const listEmployees = () =>  axios.get(URL);
-
-// export const savedEmployee = (employee) => axios.post(URL, employee);
-
-// export const editEmployee = (employeeid) => {
-//     return axios.get(URL + '/' + employeeid);
-// }
-
-// export const updateDataEmployee = (employeeid , employee) =>{
-//     return axios.put(URL + '/' + employeeid,employee);
-// }
-// export const deleteEmployee = (employeeId)=> axios.delete(URL + '/' + employeeId);
+export const deleteCompany = (companyId) => async (dispatch) => {
+  try {
+    dispatch({ type: actions.DELETE_COMPANY_REQUEST });
+    await axios.delete(`${URL}/deleteCompany/${companyId}`);
+    dispatch({ type: actions.DELETE_COMPANY_SUCCESS });
+  } catch (error) {
+    dispatch({ type: actions.DELETE_COMPANY_FAILURE });
+  }
+};

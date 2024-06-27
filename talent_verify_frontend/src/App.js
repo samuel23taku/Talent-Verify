@@ -1,16 +1,17 @@
 import './styles/App.css';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import CompanyComponent from './components/CompanyComponent';
 import DepartmentComponent from './components/DepartmentComponent';
 import EmployeeComponent from './components/EmployeeComponent';
 import ModalDialog from './components/ModalDialog';
-import CompanyService from './services/company_service';
+import CompanyService, { FetchAllCompanies } from './services/company_service';
 import createCompany from './services/company_service';
 import { Provider, useDispatch, useSelector } from 'react-redux';
-import store from "./state/store"
-function App() {
-
-
+import store from "./state/store";
+const  App = () =>{
+  // useEffect(()=>{
+  //   console.log("Dispatching fetchAllCompanies");
+  // },[])
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
