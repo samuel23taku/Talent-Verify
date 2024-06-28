@@ -9,6 +9,7 @@ import {
   fetchDepartmentsByCompany,
 } from "../services/department_service";
 import CreateDepartmentDialog from "./Dialogs/CreateDepartmentDialog";
+import { fetchEmployeesByDepartment } from "../services/employee_service";
 
 const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDepartment }) => {
   const dispatch = useDispatch();
@@ -24,9 +25,8 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
   });
 
   const handleSelectDepartment = (department) => {
-    console.log("Passed dep is ", department);
     setSelectedDepartment(department);
-    // dispatch(fetchEmployeesByDepartment(department.id));
+    fetchEmployeesByDepartment(dispatch,department.departmentId);
   };
 
   const handleCreateDepartment = (newDepartment) => {

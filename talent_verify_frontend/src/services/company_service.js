@@ -16,7 +16,6 @@ export const fetchAllCompanies = async (dispatch) => {
 };
 
 export const createCompany = async (company,dispatch) => {
-    console.log("Company is ",company);
     dispatch({ type: actions.CREATE_COMPANY_REQUEST });
     try {
     const response = await axios.post(`${URL}/createNewCompany`, company, {

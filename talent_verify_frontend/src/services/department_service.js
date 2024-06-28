@@ -19,7 +19,6 @@ export const fetchDepartmentsByCompany = async(dispatch,companyId)=> {
 export const createDepartment = async (dispatch,department) => {
   dispatch({ type: actions.CREATE_DEPARTMENT_REQUEST });
   try {
-      console.log("Data is ",department);
     const response = await axios.post(`${URL}/createNewDepartment`, department, {
         headers: {
           'Content-Type': 'application/json',
