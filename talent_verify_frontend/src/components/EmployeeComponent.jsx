@@ -1,19 +1,29 @@
+import "../styles/DepartmentComponent.css";
+import React from "react";
 
-const EmployeeComponent = ({}) => {
-    return (
+const EmployeeComponent = ({ employees }) => {
+  return (
+    <div>
+      <h2 className="employee-header">Employees</h2>
       <div>
-        <h2 className="employee-header">Employees</h2>
-        <ul>
-            <h5>takudzwa</h5>
-          {/* {employees.map((employee, index) => (
-            <li key={index}>
-              {employee}
-              <button onClick={() => onUpdateEmployee(index, employee)}>Edit</button>
-            </li>
-          ))} */}
-        </ul>
+      <ul>
+        <h1>Text</h1>
+        {/* {employees.map((employee, index) => (
+          <li key={index} className="employee-item">
+            {employee.name}
+            <button className="employee-button">Edit</button>
+          </li>
+        ))} */}
+      </ul>
       </div>
-    );
-  };
 
-  export default EmployeeComponent;
+    <button
+          onClick={()=>{}}
+        >
+          Add New employee
+        </button>
+    </div>
+  );
+};
+
+export default EmployeeComponent;

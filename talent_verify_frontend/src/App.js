@@ -11,18 +11,25 @@ import store from "./state/store";
 
 
 const  App = () =>{
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalTitle, setModalTitle] = useState('');
-  const [modalValue, setModalValue] = useState('');
-  const [modalType, setModalType] = useState('');
-  const [modalId, setModalId] = useState(null);
-
+  const [selectedDepartment, setSelectedDepartment] = useState(null);
+  const [selectedCompany, setSelectedCompany] = useState(null);
   return (
     <Provider store={store}>
     <div className="container">
       <div className="list-container">
-        <CompanyComponent
+        <CompanyComponent selectedCompany={selectedCompany} setSelectedCompany={setSelectedCompany}
         />
+      </div>
+      <div className="list-container">
+      {selectedCompany && (
+        <DepartmentComponent selectedCompany={selectedCompany} setSelectedDepartment={setSelectedDepartment} />
+      )}
+            
+      </div>
+      <div className="list-container">
+      {selectedDepartment && (
+          <EmployeeComponent selectedDepartment={selectedDepartment} />
+      )}  
       </div>
       </div>
     </Provider>

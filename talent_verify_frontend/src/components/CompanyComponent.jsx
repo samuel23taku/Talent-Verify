@@ -10,14 +10,17 @@ import {
 } from "../services/company_service";
 import CreateCompanyModalDialog from "./Dialogs/CreateCompanyModalDialog";
 import { fetchDepartmentsByCompany } from "../services/department_service";
+import EmployeeComponent from "./EmployeeComponent";
 
-const CompanyComponent = () => {
+const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
   console.log("Main")
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies.data);
   const loadingCompanies = useSelector((state) => state.companies.loading);
   const errorCompanies = useSelector((state) => state.companies.error);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+
 
   const [companyData, setCompanyData] = useState({
     companyName: "",
@@ -29,7 +32,6 @@ const CompanyComponent = () => {
     emailAddress: "",
   });
 
-  const [selectedCompany, setSelectedCompany] = useState(null);
 
   useEffect(() => {
     fetchAllCompanies(dispatch);
@@ -114,9 +116,7 @@ const CompanyComponent = () => {
         companyData={companyData}
         setCompanyData={setCompanyData}
       />
-      {selectedCompany && (
-        <DepartmentComponent selectedCompany={selectedCompany} />
-      )}
+
       
     </div>
   );

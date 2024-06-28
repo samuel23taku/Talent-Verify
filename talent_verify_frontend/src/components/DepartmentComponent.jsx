@@ -10,29 +10,28 @@ import {
 } from "../services/department_service";
 import CreateDepartmentDialog from "./Dialogs/CreateDepartmentDialog";
 
-const DepartmentComponent = ({ selectedCompany }) => {
+const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDepartment }) => {
   const dispatch = useDispatch();
   const departments = useSelector((state) => state.departments.data);
   const loadingDepartments = useSelector((state) => state.departments.loading);
   const errorDepartments = useSelector((state) => state.departments.error);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDepartment, setSelectedDepartment] = useState(null);
 
   const [departmentData, setDepartmentData] = useState({
     id: 0,
     departmentName: "",
-    company:selectedCompany
+    company: selectedCompany,
   });
 
   const handleSelectDepartment = (department) => {
-    console.log("Passed dep is ",department);
+    console.log("Passed dep is ", department);
     setSelectedDepartment(department);
     // dispatch(fetchEmployeesByDepartment(department.id));
   };
 
   const handleCreateDepartment = (newDepartment) => {
     // dispatch(createDepartment(newDepartment));
-    setIsModalOpen(true)
+    setIsModalOpen(true);
   };
 
   const handleUpdateDepartment = (departmentId, updatedDepartment) => {
@@ -45,7 +44,7 @@ const DepartmentComponent = ({ selectedCompany }) => {
 
   const handleSubmit = () => {
     // createDepartment(companyData,dispatch);
-    createDepartment(dispatch,departmentData)
+    createDepartment(dispatch, departmentData);
     setIsModalOpen(false);
     // console.log(companyData)
   };
@@ -63,63 +62,65 @@ const DepartmentComponent = ({ selectedCompany }) => {
   }
 
   return (
-    <div className="list-container">
+    <div>
       {selectedCompany && (
-        <div>
-          <h2 className="department-header">Departments</h2>
-           <ul>
-            {departments.map((department) => (
-              <li
-                // key={department.departmentId}
-                // className={
-                //   department.departmentId === selectedDepartment?.departmentId ? "active" : ""
-                // }
-                // onClick={() => handleSelectDepartment(department)}
-              >
-                {department != undefined ?
-                department.departmentName : <h6></h6>}
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // handleUpdateDepartment(department.departmentId, department);
-                  }}
+          <div>
+            <h2 className="department-header">Departments</h2>
+            <ul>
+              {departments.map((department) => (
+                <li
+                  key={department.departmentId}
+                  className={
+                    department.departmentId === selectedDepartment?.departmentId
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() => handleSelectDepartment(department)}
                 >
-                  Edit
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    // handleDeleteDepartment(department.departmentId);
-                  }}
-                >
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul> 
-          <button
-            onClick={() =>
-              handleCreateDepartment({
-                name: "New Department",
-                departmentId: selectedCompany.companyId,
-              })
-            }
-          >
-            Create Department
-          </button>
+                  {department != undefined ? (
+                    department.departmentName
+                  ) : (
+                    <h6></h6>
+                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // handleUpdateDepartment(department.departmentId, department);
+                    }}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // handleDeleteDepartment(department.departmentId);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() =>
+                handleCreateDepartment({
+                  name: "New Department",
+                  departmentId: selectedCompany.companyId,
+                })
+              }
+            >
+              Create Department
+            </button>
 
-          <CreateDepartmentDialog
-            isOpen={isModalOpen}
-            onRequestClose={handleCloseDialog}
-            title={`Create Department for company ${selectedCompany.companyName}`}
-            setDepartmentData={setDepartmentData}
-            departmentData={departmentData}
-            handleSubmit={handleSubmit}
-          />
-          {selectedDepartment && (
-            <EmployeeComponent selectedDepartment={selectedDepartment} />
-          )}
-        </div>
+            <CreateDepartmentDialog
+              isOpen={isModalOpen}
+              onRequestClose={handleCloseDialog}
+              title={`Create Department for company ${selectedCompany.companyName}`}
+              setDepartmentData={setDepartmentData}
+              departmentData={departmentData}
+              handleSubmit={handleSubmit}
+            />
+          </div>
       )}
     </div>
   );

@@ -1,12 +1,37 @@
+.department-container {
+  display: flex;
+  gap: 20px;
+}
 
+.department-list {
+  flex: 1;
+}
 
-/* Department and Employee header styling */
-.department-header,
-.employee-header {
-  font-size: 22px;
-  font-weight: bold;
-  color: #495057;
+.department-header {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
   margin-bottom: 10px;
-  border-bottom: 2px solid #495057;
-  padding-bottom: 5px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li.active {
+  background-color: #21972b;
+}
+
+button {
+  margin-left: 10px;
 }
