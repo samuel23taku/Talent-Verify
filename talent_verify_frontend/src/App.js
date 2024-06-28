@@ -3,7 +3,7 @@ import React, { useState,useEffect } from 'react';
 import CompanyComponent from './components/CompanyComponent';
 import DepartmentComponent from './components/DepartmentComponent';
 import EmployeeComponent from './components/EmployeeComponent';
-import ModalDialog from './components/ModalDialog';
+import CreateCompanyModalDialog from './components/Dialogs/CreateCompanyModalDialog';
 import CompanyService, { FetchAllCompanies } from './services/company_service';
 import createCompany from './services/company_service';
 import { Provider, useDispatch, useSelector } from 'react-redux';

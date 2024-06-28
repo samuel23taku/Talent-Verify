@@ -1,7 +1,7 @@
 import Modal from "react-modal";
-import "../styles/ModalDialog.css";
+import "../../styles/ModalDialog.css";
 
-const ModalDialog = ({
+const CreateCompanyModalDialog = ({
   isOpen,
   onRequestClose,
   title,
@@ -131,4 +131,4 @@ const ModalDialog = ({
   );
 };
 
-export default ModalDialog;
+export default CreateCompanyModalDialog;

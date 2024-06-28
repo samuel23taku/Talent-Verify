@@ -6,20 +6,25 @@ const URL = `${BASEURL}/company`;
 
 export const fetchAllCompanies = async (dispatch) => {
   dispatch({ type: actions.FETCH_COMPANIES_REQUEST });
-//   try {
-    console.log("Executing");
+  try {
     const response = await axios.get(`${URL}/getAllCompanies`);
     dispatch({ type: actions.FETCH_COMPANIES_SUCCESS, payload: response.data });
-//   } catch (e) {
-//     console.log("Error is ", e);
-//     dispatch({ type: actions.FETCH_COMPANIES_FAILURE });
-//   }
+  } catch (e) {
+    console.log("Error is ", e);
+    dispatch({ type: actions.FETCH_COMPANIES_FAILURE });
+  }
 };
 
 export const createCompany = async (company,dispatch) => {
+    console.log("Company is ",company);
     dispatch({ type: actions.CREATE_COMPANY_REQUEST });
     try {
-    const response = await axios.post(`${URL}/createCompany`, company);
+    const response = await axios.post(`${URL}/createNewCompany`, company, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      await fetchAllCompanies(dispatch);
     dispatch({ type: actions.CREATE_COMPANY_SUCCESS });
 } catch (error) {
     dispatch({ type: actions.CREATE_COMPANY_FAILURE });

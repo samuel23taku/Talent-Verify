@@ -33,7 +33,6 @@ const companyReducer = (state = initialState.companies, action) => {
         loading: false,
         data: action.payload,
       };
-      console.log("Received payload is ",data)
       return data;
       case actions.UPDATE_COMPANY_SUCCESS:
         return {
@@ -68,8 +67,10 @@ const departmentsReducer = (state = initialState.departments, action) => {
       case actions.DELETE_DEPARTMENT_REQUEST:
         return { ...state, loading: true, error: null };
       case actions.FETCH_DEPARTMENTS_SUCCESS:
-        return { ...state, loading: false, data: action.payload };
-      case actions.CREATE_DEPARTMENT_SUCCESS:
+        let value = { ...state, loading: false, data: action.data };
+        console.log("Value is ",value)
+        return value;
+        case actions.CREATE_DEPARTMENT_SUCCESS:
         return { ...state, loading: false, data: [...state.data, action.payload] };
       case actions.UPDATE_DEPARTMENT_SUCCESS:
         return {

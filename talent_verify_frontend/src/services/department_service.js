@@ -2,11 +2,13 @@ import axios from "axios";
 import { BASEURL } from "./constants";
 import * as actions from "../state/actions.js";
 
-export const fetchDepartmentsByCompany = (companyId) => async (dispatch) => {
+const URL = `${BASEURL}/department`;
+
+export const fetchDepartmentsByCompany = async(dispatch,companyId)=> {
   dispatch({ type: actions.FETCH_DEPARTMENTS_REQUEST });
   try {
     const response = await axios.get(
-      `${URL}/getDepartmentsByCompany/${companyId}`
+      `${URL}/getDepartments/${companyId}`
     );
     dispatch({ type: actions.FETCH_DEPARTMENTS_SUCCESS, data: response.data });
   } catch (error) {
@@ -14,11 +16,19 @@ export const fetchDepartmentsByCompany = (companyId) => async (dispatch) => {
   }
 };
 
-export const createDepartment = (department) => async (dispatch) => {
+export const createDepartment = async (dispatch,department) => {
   dispatch({ type: actions.CREATE_DEPARTMENT_REQUEST });
   try {
-    const response = await axios.post(`${URL}/createDepartment`, department);
+      console.log("Data is ",department);
+    const response = await axios.post(`${URL}/createNewDepartment`, department, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    
+    );
     dispatch({ type: actions.CREATE_DEPARTMENT_SUCCESS, data: response.data });
+    fetchDepartmentsByCompany(dispatch,department.company.companyId)
   } catch (error) {
     dispatch({ type: actions.CREATE_DEPARTMENT_FAILURE });
   }

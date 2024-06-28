@@ -8,7 +8,8 @@ import {
   updateCompany,
   deleteCompany,
 } from "../services/company_service";
-import ModalDialog from "./ModalDialog";
+import CreateCompanyModalDialog from "./Dialogs/CreateCompanyModalDialog";
+import { fetchDepartmentsByCompany } from "../services/department_service";
 
 const CompanyComponent = () => {
   console.log("Main")
@@ -36,6 +37,7 @@ const CompanyComponent = () => {
 
   const handleSelectCompany = (company) => {
     setSelectedCompany(company);
+    fetchDepartmentsByCompany(dispatch,company.companyId)
     // dispatch(fetchDepartmentsByCompany(company.id));
   };
 
@@ -46,10 +48,8 @@ const CompanyComponent = () => {
   const handleDeleteCompany = (companyId) => {
     dispatch(deleteCompany(companyId));
   };
-  const handleCreateCompany = ()=>{
-    setIsModalOpen(true)
-  }
   const handleSubmit = () => {
+    createCompany(companyData,dispatch);
     setIsModalOpen(false);
     console.log(companyData)
   };
@@ -74,14 +74,14 @@ const CompanyComponent = () => {
             {companies.map((company) => (
               <li
                 key={company.id}
-                className={company.id === selectedCompany?.id ? "active" : ""}
+                className={company.companyId === selectedCompany?.companyId ? "active" : ""}
                 onClick={() => handleSelectCompany(company)}
               >
                 {company.companyName}
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleUpdateCompany(company.id, company);
+                    handleUpdateCompany(company.companyId, company);
                   }}
                 >
                   Edit
@@ -89,7 +89,7 @@ const CompanyComponent = () => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDeleteCompany(company.id);
+                    handleDeleteCompany(company.companyId);
                   }}
                 >
                   Delete
@@ -106,7 +106,7 @@ const CompanyComponent = () => {
           Create Company
         </button>
       </div>
-      <ModalDialog
+      <CreateCompanyModalDialog
         isOpen={isModalOpen}
         onRequestClose={handleCloseDialog}
         title={"Create New Company"}
