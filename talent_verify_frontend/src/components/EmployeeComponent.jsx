@@ -48,8 +48,6 @@ const EmployeeComponent = ({selectedDepartment }) => {
       <h2 className="employee-header">Employees</h2>
       <div>
       <ul>
-        <h1>Text</h1>
-        <h2>Data{employees === undefined}</h2>
         {employees.map((employee, index) => (
           <li key={index} className="employee-item">
             {employee.name}
