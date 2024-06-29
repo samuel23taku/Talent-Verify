@@ -37,7 +37,7 @@ export const updateDepartment =
   (departmentId, department) => async (dispatch) => {
     dispatch({ type: actions.UPDATE_DEPARTMENT_REQUEST });
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `${URL}/updateDepartment/${departmentId}`,
         department
       );

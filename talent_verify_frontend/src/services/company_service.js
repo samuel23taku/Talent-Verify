@@ -34,7 +34,7 @@ export const updateCompany = (companyId, company) => async (dispatch) => {
 
   try {
     dispatch({ type: actions.UPDATE_COMPANY_REQUEST });
-    const response = await axios.put(
+    const response = await axios.patch(
       `${URL}/updateCompany/${companyId}`,
       company
     );
