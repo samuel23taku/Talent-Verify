@@ -34,13 +34,12 @@ const companyReducer = (state = initialState.companies, action) => {
       };
       return data;
     case actions.UPDATE_COMPANY_SUCCESS:
-      console.log("Update success payload is ",action.payload)
       return {
         ...state,
         loading: false,
         data: state.data.map(existingCompany => {
           const updatedCompany = action.payload.find(
-            newCompany => newCompany.companyId === existingCompany.companyId
+            newCompany => newCompany.registrationNumber === existingCompany.registrationNumber
           );
           return updatedCompany ? { ...existingCompany, ...updatedCompany } : existingCompany;
         })
@@ -49,7 +48,7 @@ const companyReducer = (state = initialState.companies, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((company) => company.companyId !== action.payload.company.companyId),
+        data: state.data.filter((company) => company.registrationNumber !== action.payload.company.registrationNumber),
       };
     case actions.FETCH_COMPANIES_FAILURE:
     case actions.CREATE_COMPANY_FAILURE:
@@ -89,11 +88,6 @@ const departmentsReducer = (state = initialState.departments, action) => {
         ),
       };
     case actions.DELETE_DEPARTMENT_SUCCESS:
-      console.log(state)
-      console.log("Passed department is ",action.payload );
-      for(let i = 0;i < state.data.length;i++){
-        console.log(state.data)
-      }
       const ress =  {
         ...state,
         loading: false,
@@ -101,8 +95,6 @@ const departmentsReducer = (state = initialState.departments, action) => {
           (department) => department.departmentId !== action.payload
         ),
       };
-      console.log("Department state",ress)
-
       return ress;
     case actions.FETCH_DEPARTMENTS_FAILURE:
     case actions.CREATE_DEPARTMENT_FAILURE:
@@ -132,18 +124,23 @@ const employeesReducer = (state = initialState.employees, action) => {
         data: [...state.data, action.payload],
       };
     case actions.UPDATE_EMPLOYEE_SUCCESS:
+      console.log("Payload is ",action.payload)
       return {
         ...state,
         loading: false,
-        data: state.data.map((employee) =>
-          employee.id === action.payload.id ? action.payload : employee
-        ),
+        data: state.data.map(existingEmployee => {
+          const updatedEmployee = action.payload.find(
+            newEmployee => newEmployee.employeeId === existingEmployee.employeeId
+          );
+          return updatedEmployee ? { ...existingEmployee, ...updatedEmployee } : existingEmployee;
+        })
       };
+
     case actions.DELETE_EMPLOYEE_SUCCESS:
       return {
         ...state,
         loading: false,
-        data: state.data.filter((employee) => employee.id !== action.payload),
+        data: state.data.filter((employee) => employee.employeeId !== action.payload.employeeId),
       };
     case actions.FETCH_EMPLOYEES_FAILURE:
     case actions.CREATE_EMPLOYEE_FAILURE:

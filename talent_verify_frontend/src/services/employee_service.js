@@ -32,12 +32,23 @@ export const createEmployee = async (dispatch, employee) => {
 };
 
 // Employee is a list of employees
+export const updateEmployee = async (dispatch, employee) => {
+  dispatch({ type: actions.UPDATE_EMPLOYEE_REQUEST });
+  try {
+    const response = await axios.patch(`${URL}/updateEmployee`, employee);
+    dispatch({ type: actions.UPDATE_EMPLOYEE_SUCCESS, payload: response.data });
+    await fetchEmployeesByDepartment(dispatch, employee[0].department.departmentId);
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_EMPLOYEE_FAILURE });
+  }
+};
+
 export const deleteEmployee = async (dispatch, employee) => {
     dispatch({ type: actions.DELETE_EMPLOYEE_REQUEST });
     try {
-      const response = await axios.delete(`${URL}/deleteEmployee/${employee.id}`);
-      dispatch({ type: actions.DELETE_EMPLOYEE_SUCCESS, data: response.data });
-      fetchEmployeesByDepartment(dispatch, employee.department.departmentId);
+      const response = await axios.delete(`${URL}/deleteEmployee/${employee.employeeId}`);
+      dispatch({ type: actions.DELETE_EMPLOYEE_SUCCESS, payload: employee });
+      await fetchEmployeesByDepartment(dispatch, employee.department.departmentId);
     } catch (error) {
       dispatch({ type: actions.DELETE_EMPLOYEE_FAILURE });
     }

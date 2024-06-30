@@ -7,7 +7,7 @@ const EditEmployeeModalDialog = ({
   title,
   handleSubmit,
   employeeData,
-  setEmployeeData,
+  setEditEmployeeData,
   handleFileUpload,
 }) => {
   return (
@@ -33,7 +33,7 @@ const EditEmployeeModalDialog = ({
             type="text"
             value={employeeData.name}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, name: e.target.value })
+              setEditEmployeeData({ ...employeeData, name: e.target.value })
             }
             className="form-input"
             required
@@ -45,7 +45,7 @@ const EditEmployeeModalDialog = ({
             type="text"
             value={employeeData.employeeId}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, employeeId: e.target.value })
+              setEditEmployeeData({ ...employeeData, employeeId: e.target.value })
             }
             className="form-input"
             required
@@ -57,7 +57,7 @@ const EditEmployeeModalDialog = ({
             type="text"
             value={employeeData.role}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, role: e.target.value })
+              setEditEmployeeData({ ...employeeData, role: e.target.value })
             }
             className="form-input"
             required
@@ -71,7 +71,7 @@ const EditEmployeeModalDialog = ({
             type="text"
             value={employeeData.dutiesInRole}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, role: e.target.value })
+              setEditEmployeeData({ ...employeeData, dutiesInRole: e.target.value })
             }
             className="form-input"
             required
@@ -83,7 +83,7 @@ const EditEmployeeModalDialog = ({
             type="date"
             value={employeeData.dateStartedRole}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, dateStartedRole: e.target.value })
+              setEditEmployeeData({ ...employeeData, dateStartedRole: e.target.value })
             }
             className="form-input"
             required
@@ -95,10 +95,9 @@ const EditEmployeeModalDialog = ({
             type="date"
             value={employeeData.dateLeftRole}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, dateLeftRole: e.target.value })
+              setEditEmployeeData({ ...employeeData, dateLeftRole: e.target.value })
             }
             className="form-input"
-            required
           />
         </div>
         <button type="submit" className="form-input">Submit</button>

@@ -24,7 +24,7 @@ public class EmployeeController {
 
     @DeleteMapping("/deleteEmployee/{employeeId}")
     public ResponseEntity deleteEmployee(@PathVariable String employeeId){
-        employeeRepository.delete(employee);
+        employeeRepository.deleteById(employeeId);
         return ResponseEntity.ok().build();
     }
 

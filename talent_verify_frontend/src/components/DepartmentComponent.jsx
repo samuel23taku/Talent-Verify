@@ -106,7 +106,7 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
               onClick={() =>
                 handleCreateDepartment({
                   name: "New Department",
-                  departmentId: selectedCompany.companyId,
+                  departmentId: selectedCompany.registrationNumber,
                 })
               }
             >

@@ -9,10 +9,8 @@ import java.util.List;
 @Entity
 public class CompanyEntity {
     @jakarta.persistence.Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long companyId;
-    private String companyName;
     private String registrationNumber;
+    private String companyName;
     private String dateRegistered;
     private String numberOfEmployees; // Todo(Not editable, should be based on the number of employees available in company
     private String address;
@@ -22,9 +20,6 @@ public class CompanyEntity {
 
     @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
     private List<DepartmentEntity> departments;
-    public Long getCompanyId() {
-        return companyId;
-    }
 
     public String getCompanyName() {
         return companyName;

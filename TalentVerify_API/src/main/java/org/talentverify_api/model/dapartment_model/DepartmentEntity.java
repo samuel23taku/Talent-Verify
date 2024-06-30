@@ -14,7 +14,7 @@ public class DepartmentEntity {
     private String departmentName;
 
     @ManyToOne
-    @JoinColumn(name = "companyId")
+    @JoinColumn(name = "registrationNumber")
     private CompanyEntity company;
 
     @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)

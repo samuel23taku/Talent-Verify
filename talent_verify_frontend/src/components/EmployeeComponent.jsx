@@ -3,7 +3,7 @@ import React from "react";
 import CreateEmployeeModalDialog from "./Dialogs/CreateNewEmployeeDialog";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createEmployee } from "../services/employee_service";
+import { createEmployee, deleteEmployee, updateEmployee } from "../services/employee_service";
 import EditEmployeeModalDialog from "./Dialogs/EditDialogs/EditEmployeeDialog";
 const EmployeeComponent = ({selectedDepartment }) => {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const EmployeeComponent = ({selectedDepartment }) => {
     setIsEmployeeModalOpen(false);
   };
 
-  const handleSubmitEmployee = () => {
+  const handleSubmitCreatedEmployee = () => {
     // Handle the form submission here
     setIsEmployeeModalOpen(false);
     employeeData.department = selectedDepartment;
@@ -50,22 +50,31 @@ const EmployeeComponent = ({selectedDepartment }) => {
     
   };
 
-  const handleDeleteEmployee = (employee)=>{
 
+
+  const handleSubmitEditedEmployee = () => {
+    // Handle the form submission here
+    setIsEditEmployeeModalOpen(false);
+    updateEmployee(dispatch,[editEmployeeData])
+  };
+
+  const handleDeleteEmployee = (employee)=>{
+    deleteEmployee(dispatch,employee)
   }
 
-  const handleUpdateEmployee = () => {
+  const handleUpdateEmployee = (employee) => {
     console.log(selectedEmployee)
     setEditEmployeeData({
-      name: selectedEmployee.name,
-      employeeId: selectedEmployee.employeeId,
-      role: selectedEmployee.role,
-      department: selectedEmployee.department,
-      dutiesInRole:selectedEmployee.dutiesInRole,
-      dateStartedRole:selectedEmployee.dateStartedRole,
-      dateLeftRole:selectedEmployee.dateLeftRole,
+      name: employee.name,
+      employeeId: employee.employeeId,
+      role: employee.role,
+      department: employee.department,
+      dutiesInRole:employee.dutiesInRole,
+      dateStartedRole:employee.dateStartedRole,
+      dateLeftRole:employee.dateLeftRole,
     })
-  }
+    setIsEditEmployeeModalOpen(true)
+}
 
   const handleFileUpload = (e) => {
     // Handle file upload here
@@ -94,8 +103,7 @@ const EmployeeComponent = ({selectedDepartment }) => {
                 </button>
             <button onClick={()=>{
               setSelectedEmployee(employee);
-              setIsEditEmployeeModalOpen(true)
-              handleUpdateEmployee();
+              handleUpdateEmployee(employee);
             }} className="employee-button">Edit</button>
           </li>
         ))}
@@ -105,16 +113,19 @@ const EmployeeComponent = ({selectedDepartment }) => {
         isOpen={isEmployeeModalOpen}
         onRequestClose={handleCloseEmployeeModal}
         title="Create Employee"
-        handleSubmit={handleSubmitEmployee}
+        handleSubmit={handleSubmitCreatedEmployee}
         employeeData={employeeData}
         setEmployeeData={setEmployeeData}
         handleFileUpload={handleFileUpload}
       />
 
       <EditEmployeeModalDialog isOpen={isEditEmployeeModalOpen}
-      onRequestClose={()=>setIsEditEmployeeModalOpen(false)}
-      
-      employeeData={editEmployeeData} />
+      onRequestClose={()=>setIsEditEmployeeModalOpen(false)} 
+      title={"Edit Employee"}
+      setEditEmployeeData={setEditEmployeeData}
+      employeeData={editEmployeeData} 
+      handleSubmit={()=>handleSubmitEditedEmployee()}
+      />
 
 
     <button

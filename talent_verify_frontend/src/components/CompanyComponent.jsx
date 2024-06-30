@@ -26,7 +26,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
   const [jsonData, setJsonData] = useState(null);
 
   const [editCompanyData, setEditCompanyData] = useState({
-    companyId: 0,
+    registrationNumber: 0,
     companyName: "",
     registrationNumber: "",
     dateRegistered: "",
@@ -52,9 +52,9 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
 
   const handleSelectCompany = (company) => {
     setSelectedCompany(company);
-    fetchDepartmentsByCompany(dispatch, company.companyId);
+    fetchDepartmentsByCompany(dispatch, company.registrationNumber);
     setEditCompanyData({
-      companyId: company.companyId,
+      registrationNumber: company.registrationNumber,
       companyName: company.companyName,
       registrationNumber: company.registrationNumber,
       dateRegistered: company.dateRegistered,
@@ -122,7 +122,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
               <li
                 key={company.id}
                 className={
-                  company.companyId === selectedCompany?.companyId
+                  company.registrationNumber === selectedCompany?.registrationNumber
                     ? "active"
                     : ""
                 }

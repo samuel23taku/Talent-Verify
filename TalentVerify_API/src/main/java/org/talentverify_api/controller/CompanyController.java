@@ -23,9 +23,9 @@ public class CompanyController {
     }
 
 
-    @DeleteMapping("/deleteCompany/{companyId}")
-    public ResponseEntity deleteCompany(@PathVariable Long companyId){
-        companyRepository.deleteById(companyId);
+    @DeleteMapping("/deleteCompany/{registrationNumber}")
+    public ResponseEntity deleteCompany(@PathVariable String registrationNumber){
+        companyRepository.deleteById(registrationNumber);
         return ResponseEntity.ok().build();
     }
 

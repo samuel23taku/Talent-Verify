@@ -70,7 +70,7 @@ const CreateEmployeeModalDialog = ({
             type="text"
             value={employeeData.dutiesInRole}
             onChange={(e) =>
-              setEmployeeData({ ...employeeData, role: e.target.value })
+              setEmployeeData({ ...employeeData, dutiesInRole: e.target.value })
             }
             className="form-input"
             required
@@ -97,7 +97,6 @@ const CreateEmployeeModalDialog = ({
               setEmployeeData({ ...employeeData, dateLeftRole: e.target.value })
             }
             className="form-input"
-            required
           />
         </div>
         <button type="submit" className="form-input">Submit</button>

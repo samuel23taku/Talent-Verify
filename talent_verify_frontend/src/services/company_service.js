@@ -57,7 +57,7 @@ export const deleteCompany = async (dispatch,company) => {
   console.log("Comapnpy is",company);
   dispatch({ type: actions.DELETE_COMPANY_REQUEST });
   try {
-  const response = await axios.delete(`${URL}/deleteCompany/${company.companyId}`,  {
+  const response = await axios.delete(`${URL}/deleteCompany/${company.registrationNumber}`,  {
       headers: {
         'Content-Type': 'application/json',
       },

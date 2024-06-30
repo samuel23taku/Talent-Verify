@@ -41,9 +41,9 @@ public class DepartmentController {
     }
 
 
-    @GetMapping("/getDepartments/{id}")
-    public List<DepartmentEntity> getDepartments(@PathVariable Long id) {
-        System.out.println("Company Id is " + id);
-        return departmentRepository.findByCompanyCompanyId(id);
+    @GetMapping("/getDepartments/{registrationNumber}")
+    public List<DepartmentEntity> getDepartments(@PathVariable String registrationNumber) {
+        System.out.println("Company Id is " + registrationNumber);
+        return departmentRepository.findByCompanyRegistrationNumber(registrationNumber);
     }
 }
