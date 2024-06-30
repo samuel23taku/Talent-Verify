@@ -117,12 +117,7 @@ const EditCompanyModalDialog = ({
           />
         </div>
         <button type="submit" className="form-input">Submit</button>
-        <input
-          type="file"
-          accept=".json"
-          onChange={handleFileUpload}
-          className="form-input"
-        />
+      
       </form>
     </Modal>
   );

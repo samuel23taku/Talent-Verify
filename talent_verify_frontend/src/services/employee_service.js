@@ -25,7 +25,7 @@ export const createEmployee = async (dispatch, employee) => {
   try {
     const response = await axios.post(`${URL}/addNewEmployee`, employee);
     dispatch({ type: actions.CREATE_EMPLOYEE_SUCCESS, data: response.data });
-    fetchEmployeesByDepartment(dispatch, employee.department.departmentId);
+    fetchEmployeesByDepartment(dispatch, employee[0].department.departmentId);
   } catch (error) {
     dispatch({ type: actions.CREATE_EMPLOYEE_FAILURE });
   }

@@ -30,7 +30,7 @@ const EmployeeComponent = ({selectedDepartment }) => {
     console.log(employeeData);
     setIsEmployeeModalOpen(false);
     employeeData.department = selectedDepartment;
-    createEmployee(dispatch,employeeData)
+    createEmployee(dispatch,[employeeData])
     
   };
 

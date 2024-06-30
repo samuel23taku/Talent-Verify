@@ -12,9 +12,9 @@ import CreateCompanyModalDialog from "./Dialogs/CreateCompanyModalDialog";
 import { fetchDepartmentsByCompany } from "../services/department_service";
 import EmployeeComponent from "./EmployeeComponent";
 import EditCompanyModalDialog from "./Dialogs/EditDialogs/EditCompanyDialog";
+import FileSelectButton from "./Buttons/FileSelectButton";
 
 const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
-  console.log("Main");
   const dispatch = useDispatch();
   const companies = useSelector((state) => state.companies.data);
   const loadingCompanies = useSelector((state) => state.companies.loading);
@@ -66,10 +66,9 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
     // dispatch(fetchDepartmentsByCompany(company.id));
   };
 
-
   const handleSubmitCompanyEdits = () => {
-    updateCompany(dispatch,[editCompanyData]);
-    setIsEditCompanyDialog(false)
+    updateCompany(dispatch, [editCompanyData]);
+    setIsEditCompanyDialog(false);
   };
 
   const handleDeleteCompany = (company) => {
@@ -133,7 +132,8 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
                 <button
                   onClick={(e) => {
                     // e.stopPropagation();
-setIsEditCompanyDialog(true)                  }}
+                    setIsEditCompanyDialog(true);
+                  }}
                 >
                   Edit
                 </button>
@@ -154,10 +154,12 @@ setIsEditCompanyDialog(true)                  }}
         <button onClick={() => setIsCreateCompanyDialogOpen(true)}>
           Create Company
         </button>
+        <h1></h1>
+        <FileSelectButton title={"Bulk Update Companies"} onFileSelect={() => {}} />
       </div>
       <CreateCompanyModalDialog
         isOpen={isCreateCompanyModalOpen}
-        onRequestClose={()=>setIsCreateCompanyDialogOpen(false)}
+        onRequestClose={() => setIsCreateCompanyDialogOpen(false)}
         title={"Create New Company"}
         handleSubmit={handleSubmit}
         companyData={companyData}

@@ -20,6 +20,7 @@ public class DepartmentEntity {
     @OneToMany(mappedBy = "department", cascade = CascadeType.REMOVE)
     private List<EmployeeEntity> employeeEntities;
 
+
     public Long getDepartmentId() {
         return departmentId;
     }

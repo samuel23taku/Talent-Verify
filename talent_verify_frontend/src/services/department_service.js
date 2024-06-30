@@ -10,6 +10,7 @@ export const fetchDepartmentsByCompany = async(dispatch,companyId)=> {
     const response = await axios.get(
       `${URL}/getDepartments/${companyId}`
     );
+    console.warn(response.data)
     dispatch({ type: actions.FETCH_DEPARTMENTS_SUCCESS, data: response.data });
   } catch (error) {
     dispatch({ type: actions.FETCH_DEPARTMENTS_FAILURE });

@@ -3,7 +3,6 @@ package org.talentverify_api.model.employee_model;
 import jakarta.persistence.*;
 import org.talentverify_api.model.company_model.CompanyEntity;
 import org.talentverify_api.model.dapartment_model.DepartmentEntity;
-import org.talentverify_api.model.role_model.RoleHistoryEntity;
 
 import java.util.List;
 
@@ -15,14 +14,14 @@ public class EmployeeEntity {
     private String employeeId;
     private String name;
     private String role;
+    private String dateStartedEachRole;
+    private String dateLeftRole; // Can be null
+    private String dutiesInEachRole;
+
 
     @ManyToOne
     @JoinColumn(name = "departmentId")
     private DepartmentEntity department;
-
-//    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<RoleHistoryEntity> roleHistories;
-
 
     public String getName() {
         return name;

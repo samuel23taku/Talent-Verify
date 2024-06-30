@@ -1,0 +1,31 @@
+[
+{
+    "companyName": "Tesla",
+    "registrationNumber": "gfhfg",
+    "dateRegistered": "2024-05-29",
+    "address": "1 Houston Texas USA",
+    "contactPerson": "Illya",
+    "contactPersonPhone": "07832349",
+    "emailAddress": "illya@gmail.com"
+}
+,
+{
+    "companyName": "Open AI",
+    "registrationNumber": "gfhfg",
+    "dateRegistered": "2024-05-29",
+    "address": "932 Palo Alto USA",
+    "contactPerson": "SamA",
+    "contactPersonPhone": "0783827299",
+    "emailAddress": "SamA@gmail.com"
+}
+,
+{
+    "companyName": "UFC",
+    "registrationNumber": "gfhfg",
+    "dateRegistered": "2024-05-29",
+    "address": "32 LasVegas USA",
+    "contactPerson": "Takudzwa Samuel Makadho",
+    "contactPersonPhone": "0783827299",
+    "emailAddress": "dana@gmail.com"
+}
+]

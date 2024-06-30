@@ -17,10 +17,8 @@ const  App = () =>{
   return (
     <Provider store={store}>
     <div className="container">
-      <div className="list-container">
         <CompanyComponent selectedCompany={selectedCompany} setSelectedCompany={setSelectedCompany}
         />
-      </div>
       <div className="list-container">
       {selectedCompany && (
         <DepartmentComponent selectedCompany={selectedCompany} selectedDepartment={selectedDepartment} setSelectedDepartment={setSelectedDepartment} />
