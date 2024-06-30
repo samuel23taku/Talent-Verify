@@ -1,23 +1,41 @@
 package org.talentverify_api.model.employee_model;
 
 import jakarta.persistence.*;
-import org.talentverify_api.model.company_model.CompanyEntity;
 import org.talentverify_api.model.dapartment_model.DepartmentEntity;
-
-import java.util.List;
 
 @Entity
 public class EmployeeEntity {
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
     private String employeeId;
     private String name;
     private String role;
-    private String dateStartedEachRole;
+    private String dateStartedRole;
     private String dateLeftRole; // Can be null
-    private String dutiesInEachRole;
+    private String dutiesInRole;
 
+    public String getDateStartedRole() {
+        return dateStartedRole;
+    }
+
+    public void setDateStartedRole(String dateStartedRole) {
+        this.dateStartedRole = dateStartedRole;
+    }
+
+    public String getDateLeftRole() {
+        return dateLeftRole;
+    }
+
+    public void setDateLeftRole(String dateLeftRole) {
+        this.dateLeftRole = dateLeftRole;
+    }
+
+    public String getDutiesInRole() {
+        return dutiesInRole;
+    }
+
+    public void setDutiesInRole(String dutiesInRole) {
+        this.dutiesInRole = dutiesInRole;
+    }
 
     @ManyToOne
     @JoinColumn(name = "departmentId")

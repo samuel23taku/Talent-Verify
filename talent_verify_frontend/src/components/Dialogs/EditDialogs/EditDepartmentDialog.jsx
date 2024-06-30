@@ -1,16 +1,13 @@
 import Modal from "react-modal";
-import "../../styles/DepartmentDialog.css";
+import "../../../styles/DepartmentDialog.css"
 
-const CreateDepartmentModalDialog = ({
+const EditDepartmentModalDialog = ({
   isOpen,
   onRequestClose,
-  title,
-  handleSubmit,
-  departmentData,
-  setDepartmentData,
-  handleFileUpload,
+  handleSubmitDepartmentEdits,
+  departmentDataToEdit,
+  setEditDepartmentData,
 }) => {
-
   return (
     <Modal
       isOpen={isOpen}
@@ -25,7 +22,7 @@ const CreateDepartmentModalDialog = ({
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handleSubmitDepartmentEdits();
         }}
       >
         <div className="form-label">
@@ -35,22 +32,16 @@ const CreateDepartmentModalDialog = ({
               type="text"
               value={departmentData.departmentName}
               onChange={(e) =>
-                setDepartmentData({ ...departmentData, departmentName: e.target.value })
+                setEditDepartmentData({ ...departmentData, departmentName: e.target.value })
               }
               required
             />
           </label>
           <button type="submit">Submit</button>
         </div>
-        {/* <div className="form-label">
-          <label>
-            <input type="file" accept=".json" onChange={handleFileUpload} />
-            Choose JSON File
-          </label>
-        </div> */}
       </form>
     </Modal>
   );
 };
 
-export default CreateDepartmentModalDialog;
+export default EditCompanyModalDialog;

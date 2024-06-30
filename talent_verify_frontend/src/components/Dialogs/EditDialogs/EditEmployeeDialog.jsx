@@ -1,7 +1,7 @@
 import Modal from "react-modal";
-import "../../styles/ModalDialog.css";
+import "../../../styles/ModalDialog.css"
 
-const CreateEmployeeModalDialog = ({
+const EditEmployeeModalDialog = ({
   isOpen,
   onRequestClose,
   title,
@@ -62,6 +62,7 @@ const CreateEmployeeModalDialog = ({
             className="form-input"
             required
           />
+          
         </div>
 
         <div className="form-label">
@@ -108,8 +109,9 @@ const CreateEmployeeModalDialog = ({
           className="form-input"
         />
       </form>
+
     </Modal>
   );
 };
 
-export default CreateEmployeeModalDialog;
+export default EditEmployeeModalDialog;

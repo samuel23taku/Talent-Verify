@@ -83,14 +83,14 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
                   ) : (
                     <h6></h6>
                   )}
-                  <button
+                  {/* <button
                     onClick={(e) => {
                       e.stopPropagation();
                       // handleUpdateDepartment(department.departmentId, department);
                     }}
                   >
                     Edit
-                  </button>
+                  </button> */}
                   <button
                     onClick={(e) => {
                       e.stopPropagation();

@@ -35,7 +35,7 @@ export const createEmployee = async (dispatch, employee) => {
 export const deleteEmployee = async (dispatch, employee) => {
     dispatch({ type: actions.DELETE_EMPLOYEE_REQUEST });
     try {
-      const response = await axios.delete(`${URL}/deleteEmployee`, employee);
+      const response = await axios.delete(`${URL}/deleteEmployee/${employee.id}`);
       dispatch({ type: actions.DELETE_EMPLOYEE_SUCCESS, data: response.data });
       fetchEmployeesByDepartment(dispatch, employee.department.departmentId);
     } catch (error) {
