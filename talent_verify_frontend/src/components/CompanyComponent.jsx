@@ -18,7 +18,9 @@ const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
   const companies = useSelector((state) => state.companies.data);
   const loadingCompanies = useSelector((state) => state.companies.loading);
   const errorCompanies = useSelector((state) => state.companies.error);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateCompanyModalOpen, setIsModalOpen] = useState(false);
+  const [jsonData, setJsonData] = useState(null);
+
 
 
 
@@ -51,9 +53,33 @@ const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
     deleteCompany(dispatch,company)
   };
   const handleSubmit = () => {
-    createCompany(dispatch,[companies]);
+    createCompany(dispatch,[companyData]);
     setIsModalOpen(false);
     console.log(companyData)
+  };
+  const handleFileUpload = (event) => {
+    let file = (event.target.files[0]);
+  if(file){
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      try {
+        const jsonContent = JSON.parse(e.target.result);
+        setJsonData(jsonContent);
+        createCompany(dispatch,jsonContent)
+        setIsModalOpen(false)
+      } catch (error) {
+        alert("Error parsing JSON:", error);
+        setJsonData(null);
+        setIsModalOpen(false)
+      }
+    };
+    reader.readAsText(file);
+  }else{
+    console.log("File is empty ",file)
+  }
+
+
   };
 
   const handleCloseDialog = ()=>{
@@ -109,12 +135,13 @@ const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
         </button>
       </div>
       <CreateCompanyModalDialog
-        isOpen={isModalOpen}
+        isOpen={isCreateCompanyModalOpen}
         onRequestClose={handleCloseDialog}
         title={"Create New Company"}
         handleSubmit={handleSubmit}
         companyData={companyData}
         setCompanyData={setCompanyData}
+        handleFileUpload={handleFileUpload}
       />
 
       

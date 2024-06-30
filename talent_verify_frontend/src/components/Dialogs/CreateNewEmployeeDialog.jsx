@@ -10,8 +10,6 @@ const CreateEmployeeModalDialog = ({
   setEmployeeData,
   handleFileUpload,
 }) => {
-  console.warn("Is open is ", isOpen);
-
   return (
     <Modal
       isOpen={isOpen}

@@ -45,7 +45,7 @@ const companyReducer = (state = initialState.companies, action) => {
       return {
         ...state,
         loading: false,
-        data: state.data.filter((company) => company.id !== action.payload),
+        data: state.data.filter((company) => company.companyId !== action.payload.company.companyId),
       };
     case actions.FETCH_COMPANIES_FAILURE:
     case actions.CREATE_COMPANY_FAILURE:
@@ -68,28 +68,38 @@ const departmentsReducer = (state = initialState.departments, action) => {
       let value = { ...state, loading: false, data: action.data };
       return value;
     case actions.CREATE_DEPARTMENT_SUCCESS:
-      return {
+      const res =  {
         ...state,
         loading: false,
         data: [...state.data, action.payload],
       };
+      console.warn("Res is ",action.payload)
+      return res;
     case actions.UPDATE_DEPARTMENT_SUCCESS:
       initialState.departments.data.pop()
       return {
         ...state,
         loading: false,
         data: state.data.map((department) =>
-          department.id === action.payload.id ? action.payload : department
+          department.departmentId === action.payload.id ? action.payload : department
         ),
       };
     case actions.DELETE_DEPARTMENT_SUCCESS:
-      return {
+      console.log(state)
+      console.log("Passed department is ",action.payload );
+      for(let i = 0;i < state.data.length;i++){
+        console.log(state.data)
+      }
+      const ress =  {
         ...state,
         loading: false,
         data: state.data.filter(
-          (department) => department.id !== action.payload.departmentId
+          (department) => department.departmentId !== action.payload
         ),
       };
+      console.log("Department state",ress)
+
+      return ress;
     case actions.FETCH_DEPARTMENTS_FAILURE:
     case actions.CREATE_DEPARTMENT_FAILURE:
     case actions.UPDATE_DEPARTMENT_FAILURE:

@@ -26,7 +26,7 @@ export const createDepartment = async (dispatch,department) => {
       }
     
     );
-    dispatch({ type: actions.CREATE_DEPARTMENT_SUCCESS, data: response.data });
+    dispatch({ type: actions.CREATE_DEPARTMENT_SUCCESS, payload: response.data });
     fetchDepartmentsByCompany(dispatch,department.company.companyId)
   } catch (error) {
     dispatch({ type: actions.CREATE_DEPARTMENT_FAILURE });
@@ -42,24 +42,23 @@ export const updateDepartment =
         department
       );
       console.warn(response.data)
-      dispatch({ type: actions.UPDATE_DEPARTMENT_SUCCESS,data:response.data });
+      dispatch({ type: actions.UPDATE_DEPARTMENT_SUCCESS,payload:response.data });
     } catch (error) {
       dispatch({ type: actions.UPDATE_DEPARTMENT_FAILURE });
     }
   };
 
-  export const deleteDepartment = async (dispatch,departmentId) => {
+  export const deleteDepartment = async (dispatch,department) => {
     dispatch({ type: actions.DELETE_DEPARTMENT_REQUEST });
     try {
-      const response = await axios.delete(`${URL}/deleteDepartment/${departmentId}`, {
+      const response = await axios.delete(`${URL}/deleteDepartment/${department.departmentId}`, {
           headers: {
             'Content-Type': 'application/json',
           },
         }
-      
       );
-      dispatch({ type: actions.DELETE_DEPARTMENT_SUCCESS, payload: departmentId });
-      return departmentId;
+      await fetchDepartmentsByCompany(dispatch,department.company.companyId)
+      dispatch({ type: actions.DELETE_DEPARTMENT_SUCCESS, payload: department.departmentId });
     } catch (error) {
       dispatch({ type: actions.DELETE_DEPARTMENT_FAILURE });
     }

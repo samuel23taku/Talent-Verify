@@ -6,6 +6,7 @@ import org.talentverify_api.model.company_model.CompanyEntity;
 import org.talentverify_api.model.company_model.CompanyRepository;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/company")
@@ -17,8 +18,8 @@ public class CompanyController {
     }
 
     @PostMapping("/createNewCompany")
-    public List<CompanyEntity> createNewCompany(@RequestBody List<CompanyEntity> company){
-        return (List<CompanyEntity>) companyRepository.saveAll(company);
+    public List<CompanyEntity> createNewCompany(@RequestBody List<CompanyEntity> companies){
+        return (List<CompanyEntity>) companyRepository.saveAll(companies);
     }
 
 

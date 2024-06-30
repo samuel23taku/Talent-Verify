@@ -1,7 +1,7 @@
 import Modal from "react-modal";
 import "../../styles/ModalDialog.css";
 
-const CreateCompanyModalDialog = ({
+const EditCompanyModalDialog = ({
   isOpen,
   onRequestClose,
   title,

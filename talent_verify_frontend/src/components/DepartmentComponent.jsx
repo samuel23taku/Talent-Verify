@@ -42,16 +42,15 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
     dispatch(updateDepartment(departmentId, updatedDepartment));
   };
 
-  const handleDeleteDepartment = (departmentId) => {
-    console.log("Dep is ",departmentId)
-    deleteDepartment(dispatch,departmentId)
+  const handleDeleteDepartment = (department) => {
+    deleteDepartment(dispatch,department)
     // setDepartments(updateDepartment)
   };
 
   const handleSubmit = () => {
     // createDepartment(companyData,dispatch);
-    createDepartment(dispatch, departmentData);
     setIsModalOpen(false);
+    createDepartment(dispatch, departmentData);
     // console.log(companyData)
   };
 
@@ -95,7 +94,7 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      handleDeleteDepartment(department.departmentId);
+                      handleDeleteDepartment(department);
                     }}
                   >
                     Delete

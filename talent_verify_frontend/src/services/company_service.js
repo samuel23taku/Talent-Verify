@@ -17,9 +17,10 @@ export const fetchAllCompanies = async (dispatch) => {
 };
 
 export const createCompany = async (dispatch,company) => {
+  console.log("Company is ",company[0])
     dispatch({ type: actions.CREATE_COMPANY_REQUEST });
     try {
-    const response = await axios.post(`${URL}/createNewCompany`, JSON.stringify(company), {
+    const response = await axios.post(`${URL}/createNewCompany`,company, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -55,8 +56,7 @@ export const deleteCompany = async (dispatch,company) => {
       },
     });
     await fetchAllCompanies(dispatch);
-    wait(2000)
-  dispatch({ type: actions.DELETE_COMPANY_SUCCESS, });
+  dispatch({ type: actions.DELETE_COMPANY_SUCCESS,payload:company });
 } catch (error) {
   dispatch({ type: actions.DELETE_COMPANY_FAILURE });
 }
