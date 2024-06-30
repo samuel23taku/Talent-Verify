@@ -1,6 +1,7 @@
 import axios from "axios";
 import { BASEURL } from "./constants";
 import * as actions from "../state/actions.js";
+import { wait } from "@testing-library/user-event/dist/utils/index.js";
 
 const URL = `${BASEURL}/company`;
 
@@ -15,10 +16,10 @@ export const fetchAllCompanies = async (dispatch) => {
   }
 };
 
-export const createCompany = async (company,dispatch) => {
+export const createCompany = async (dispatch,company) => {
     dispatch({ type: actions.CREATE_COMPANY_REQUEST });
     try {
-    const response = await axios.post(`${URL}/createNewCompany`, company, {
+    const response = await axios.post(`${URL}/createNewCompany`, JSON.stringify(company), {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -44,12 +45,19 @@ export const updateCompany = (companyId, company) => async (dispatch) => {
   }
 };
 
-export const deleteCompany = (companyId) => async (dispatch) => {
+export const deleteCompany = async (dispatch,company) => {
+  console.log("Comapnpy is",company);
+  dispatch({ type: actions.DELETE_COMPANY_REQUEST });
   try {
-    dispatch({ type: actions.DELETE_COMPANY_REQUEST });
-    await axios.delete(`${URL}/deleteCompany/${companyId}`);
-    dispatch({ type: actions.DELETE_COMPANY_SUCCESS });
-  } catch (error) {
-    dispatch({ type: actions.DELETE_COMPANY_FAILURE });
-  }
+  const response = await axios.delete(`${URL}/deleteCompany/${company.companyId}`,  {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    await fetchAllCompanies(dispatch);
+    wait(2000)
+  dispatch({ type: actions.DELETE_COMPANY_SUCCESS, });
+} catch (error) {
+  dispatch({ type: actions.DELETE_COMPANY_FAILURE });
+}
 };

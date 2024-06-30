@@ -74,6 +74,7 @@ const departmentsReducer = (state = initialState.departments, action) => {
         data: [...state.data, action.payload],
       };
     case actions.UPDATE_DEPARTMENT_SUCCESS:
+      initialState.departments.data.pop()
       return {
         ...state,
         loading: false,
@@ -86,7 +87,7 @@ const departmentsReducer = (state = initialState.departments, action) => {
         ...state,
         loading: false,
         data: state.data.filter(
-          (department) => department.id !== action.payload
+          (department) => department.id !== action.payload.departmentId
         ),
       };
     case actions.FETCH_DEPARTMENTS_FAILURE:

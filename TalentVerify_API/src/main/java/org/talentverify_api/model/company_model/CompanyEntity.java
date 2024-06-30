@@ -1,10 +1,10 @@
-package org.talentverify_api.model;
+package org.talentverify_api.model.company_model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.*;
+import org.talentverify_api.model.dapartment_model.DepartmentEntity;
+
+import java.util.List;
 
 @Entity
 public class CompanyEntity {
@@ -20,7 +20,8 @@ public class CompanyEntity {
     private String contactPersonPhone;
     private String emailAddress;
 
-
+    @OneToMany(mappedBy = "company", cascade = CascadeType.REMOVE)
+    private List<DepartmentEntity> departments;
     public Long getCompanyId() {
         return companyId;
     }

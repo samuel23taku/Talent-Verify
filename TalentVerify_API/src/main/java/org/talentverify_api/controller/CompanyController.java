@@ -1,17 +1,13 @@
-package org.talentverify_api;
+package org.talentverify_api.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.talentverify_api.model.CompanyEntity;
+import org.talentverify_api.model.company_model.CompanyEntity;
 import org.talentverify_api.model.company_model.CompanyRepository;
 
 import java.util.List;
 
-
-// Adding,Removing companies etc
 @RestController
-@CrossOrigin(origins = "http://localhost:3000") // allow requests from React app on port 3000
 @RequestMapping("/company")
 public class CompanyController {
     private final CompanyRepository companyRepository;
@@ -20,19 +16,20 @@ public class CompanyController {
         this.companyRepository = companyRepository;
     }
 
-    @PostMapping("/addNewCompany")
-    public CompanyEntity addNewCompany(@RequestBody CompanyEntity company){
-        return companyRepository.save(company);
+    @PostMapping("/createNewCompany")
+    public List<CompanyEntity> createNewCompany(@RequestBody List<CompanyEntity> company){
+        return (List<CompanyEntity>) companyRepository.saveAll(company);
     }
 
 
-    @PostMapping("/deleteCompany")
-    public ResponseEntity deleteCompany(){
+    @DeleteMapping("/deleteCompany/{companyId}")
+    public ResponseEntity deleteCompany(@PathVariable Long companyId){
+        companyRepository.deleteById(companyId);
         return ResponseEntity.ok().build();
     }
 
 
-    @GetMapping("/updateCompany")
+    @PatchMapping("/updateCompany")
     public ResponseEntity updateCompany(){
         return ResponseEntity.ok().build();
     }
@@ -44,8 +41,10 @@ public class CompanyController {
     }
 
 
-    @PostMapping("/getAllCompanies")
+    @GetMapping("/getAllCompanies")
     public List<CompanyEntity> getAllCompanies(){
         return (List<CompanyEntity>) companyRepository.findAll();
     }
 }
+
+// Adding,Removing companies etc

@@ -47,11 +47,11 @@ const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
     dispatch(updateCompany(companyId, updatedCompany));
   };
 
-  const handleDeleteCompany = (companyId) => {
-    dispatch(deleteCompany(companyId));
+  const handleDeleteCompany = (company) => {
+    deleteCompany(dispatch,company)
   };
   const handleSubmit = () => {
-    createCompany(companyData,dispatch);
+    createCompany(dispatch,[companies]);
     setIsModalOpen(false);
     console.log(companyData)
   };
@@ -91,7 +91,7 @@ const CompanyComponent = ({selectedCompany,setSelectedCompany}) => {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleDeleteCompany(company.companyId);
+                    handleDeleteCompany(company);
                   }}
                 >
                   Delete

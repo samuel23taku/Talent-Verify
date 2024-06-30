@@ -41,18 +41,26 @@ export const updateDepartment =
         `${URL}/updateDepartment/${departmentId}`,
         department
       );
+      console.warn(response.data)
       dispatch({ type: actions.UPDATE_DEPARTMENT_SUCCESS,data:response.data });
     } catch (error) {
       dispatch({ type: actions.UPDATE_DEPARTMENT_FAILURE });
     }
   };
 
-export const deleteDepartment = (departmentId) => async (dispatch) => {
+  export const deleteDepartment = async (dispatch,departmentId) => {
     dispatch({ type: actions.DELETE_DEPARTMENT_REQUEST });
-  try {
-    await axios.delete(`${URL}/deleteDepartment/${departmentId}`);
-    dispatch({ type: actions.DELETE_DEPARTMENT_SUCCESS });
-  } catch (error) {
-    dispatch({ type: actions.DELETE_DEPARTMENT_FAILURE });
-  }
-};
+    try {
+      const response = await axios.delete(`${URL}/deleteDepartment/${departmentId}`, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      
+      );
+      dispatch({ type: actions.DELETE_DEPARTMENT_SUCCESS, payload: departmentId });
+      return departmentId;
+    } catch (error) {
+      dispatch({ type: actions.DELETE_DEPARTMENT_FAILURE });
+    }
+  };

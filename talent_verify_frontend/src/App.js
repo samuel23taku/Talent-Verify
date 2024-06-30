@@ -13,6 +13,7 @@ import store from "./state/store";
 const  App = () =>{
   const [selectedDepartment, setSelectedDepartment] = useState(null);
   const [selectedCompany, setSelectedCompany] = useState(null);
+  const [selectedEmployee, setSelectedEmployee] = useState(null)
   return (
     <Provider store={store}>
     <div className="container">
@@ -22,7 +23,7 @@ const  App = () =>{
       </div>
       <div className="list-container">
       {selectedCompany && (
-        <DepartmentComponent selectedCompany={selectedCompany} setSelectedDepartment={setSelectedDepartment} />
+        <DepartmentComponent selectedCompany={selectedCompany} selectedDepartment={selectedDepartment} setSelectedDepartment={setSelectedDepartment} />
       )}
             
       </div>

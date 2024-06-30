@@ -1,5 +1,5 @@
 import "../styles/DepartmentComponent.css";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import EmployeeComponent from "./EmployeeComponent";
 import {
@@ -13,7 +13,11 @@ import { fetchEmployeesByDepartment } from "../services/employee_service";
 
 const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDepartment }) => {
   const dispatch = useDispatch();
-  const departments = useSelector((state) => state.departments.data);
+  const depData = useSelector((state) => state.departments.data)
+  const [departments,setDepartments] = useState([]);
+  useEffect(() => {
+    setDepartments(depData);
+  }, [depData]);
   const loadingDepartments = useSelector((state) => state.departments.loading);
   const errorDepartments = useSelector((state) => state.departments.error);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -39,7 +43,9 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
   };
 
   const handleDeleteDepartment = (departmentId) => {
-    dispatch(deleteDepartment(departmentId));
+    console.log("Dep is ",departmentId)
+    deleteDepartment(dispatch,departmentId)
+    // setDepartments(updateDepartment)
   };
 
   const handleSubmit = () => {
@@ -69,12 +75,8 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
             <ul>
               {departments.map((department) => (
                 <li
-                  key={department.departmentId}
-                  className={
-                    department.departmentId === selectedDepartment?.departmentId
-                      ? "active"
-                      : ""
-                  }
+                className={selectedDepartment != null  && department.departmentId != undefined && selectedDepartment.departmentId == department.departmentId ? "active": ""}
+                  // className={department.depatmentId == selectedDepartment.departmentId ? "active" : ""}
                   onClick={() => handleSelectDepartment(department)}
                 >
                   {department != undefined ? (
@@ -93,7 +95,7 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      // handleDeleteDepartment(department.departmentId);
+                      handleDeleteDepartment(department.departmentId);
                     }}
                   >
                     Delete
