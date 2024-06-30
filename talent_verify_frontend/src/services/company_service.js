@@ -16,6 +16,7 @@ export const fetchAllCompanies = async (dispatch) => {
   }
 };
 
+// pass list of companies
 export const createCompany = async (dispatch,company) => {
   console.log("Company is ",company[0])
     dispatch({ type: actions.CREATE_COMPANY_REQUEST });
@@ -32,15 +33,21 @@ export const createCompany = async (dispatch,company) => {
   }
 };
 
-export const updateCompany = (companyId, company) => async (dispatch) => {
+// pass list of companies to update
+export const updateCompany = async (dispatch,companies) => {
 
   try {
     dispatch({ type: actions.UPDATE_COMPANY_REQUEST });
-    const response = await axios.patch(
-      `${URL}/updateCompany/${companyId}`,
-      company
+    const response = await axios.post(
+      `${URL}/updateCompany`,
+      companies , {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
     );
-    dispatch({ type: actions.UPDATE_COMPANY_SUCCESS });
+    console.warn("UPdated response is ",response.data)
+    dispatch({ type: actions.UPDATE_COMPANY_SUCCESS,payload:response.data });
   } catch (error) {
     dispatch({ type: actions.UPDATE_COMPANY_FAILURE });
   }

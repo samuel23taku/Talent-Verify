@@ -17,8 +17,8 @@ public class EmployeeController {
     }
 
     @PostMapping("/addNewEmployee")
-    public EmployeeEntity addNewEmployee(@RequestBody EmployeeEntity newEmployee){
-        return employeeRepository.save(newEmployee);
+    public List<EmployeeEntity> addNewEmployee(@RequestBody List<EmployeeEntity> newEmployee){
+        return (List<EmployeeEntity>) employeeRepository.saveAll(newEmployee);
     }
 
 
@@ -30,8 +30,8 @@ public class EmployeeController {
 
 
     @PatchMapping("/updateEmployee")
-    public ResponseEntity updateEmployee(){
-        return ResponseEntity.ok().build();
+    public List<EmployeeEntity> updateEmployee(@RequestBody List<EmployeeEntity> employee){
+        return (List<EmployeeEntity>) employeeRepository.saveAll(employee);
     }
 
     @GetMapping("/searchEmployee")

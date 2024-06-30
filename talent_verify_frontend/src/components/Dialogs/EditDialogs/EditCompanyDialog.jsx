@@ -1,13 +1,12 @@
 import Modal from "react-modal";
-import "../../styles/ModalDialog.css";
+import "../../../styles/DepartmentDialog.css"
 
 const EditCompanyModalDialog = ({
   isOpen,
   onRequestClose,
-  title,
-  handleSubmit,
-  companyData,
-  setCompanyData,
+  handleSubmitCompanyEdits,
+  companyDataToEdit,
+  setEditCompanyData,
   handleFileUpload,
 }) => {
   return (
@@ -17,23 +16,23 @@ const EditCompanyModalDialog = ({
       className="modal"
       overlayClassName="modal-overlay"
     >
-      <h2>{title}</h2>
+      <h2>Edit company</h2>
       <button onClick={onRequestClose} className="close-button">
         X
       </button>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          handleSubmit();
+          handleSubmitCompanyEdits();
         }}
       >
         <div className="form-label">
           <label className="label-text">Company Name:</label>
           <input
             type="text"
-            value={companyData.companyName}
+            value={companyDataToEdit.companyName}
             onChange={(e) =>
-              setCompanyData({ ...companyData, companyName: e.target.value })
+              setEditCompanyData({ ...companyDataToEdit, companyName: e.target.value })
             }
             className="form-input"
             required
@@ -43,10 +42,10 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Registration Number:</label>
           <input
             type="text"
-            value={companyData.registrationNumber}
+            value={companyDataToEdit.registrationNumber}
             onChange={(e) =>
-              setCompanyData({
-                ...companyData,
+              setEditCompanyData({
+                ...companyDataToEdit,
                 registrationNumber: e.target.value,
               })
             }
@@ -58,9 +57,9 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Date Registered:</label>
           <input
             type="date"
-            value={companyData.dateRegistered}
+            value={companyDataToEdit.dateRegistered}
             onChange={(e) =>
-              setCompanyData({ ...companyData, dateRegistered: e.target.value })
+              setEditCompanyData({ ...companyDataToEdit, dateRegistered: e.target.value })
             }
             className="form-input"
             required
@@ -70,9 +69,9 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Address:</label>
           <input
             type="text"
-            value={companyData.address}
+            value={companyDataToEdit.address}
             onChange={(e) =>
-              setCompanyData({ ...companyData, address: e.target.value })
+              setEditCompanyData({ ...companyDataToEdit, address: e.target.value })
             }
             className="form-input"
             required
@@ -82,9 +81,9 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Contact Person:</label>
           <input
             type="text"
-            value={companyData.contactPerson}
+            value={companyDataToEdit.contactPerson}
             onChange={(e) =>
-              setCompanyData({ ...companyData, contactPerson: e.target.value })
+              setEditCompanyData({ ...companyDataToEdit, contactPerson: e.target.value })
             }
             className="form-input"
             required
@@ -94,10 +93,10 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Contact Person Phone:</label>
           <input
             type="text"
-            value={companyData.contactPersonPhone}
+            value={companyDataToEdit.contactPersonPhone}
             onChange={(e) =>
-              setCompanyData({
-                ...companyData,
+              setEditCompanyData({
+                ...companyDataToEdit,
                 contactPersonPhone: e.target.value,
               })
             }
@@ -109,9 +108,9 @@ const EditCompanyModalDialog = ({
           <label className="label-text">Email Address:</label>
           <input
             type="email"
-            value={companyData.emailAddress}
+            value={companyDataToEdit.emailAddress}
             onChange={(e) =>
-              setCompanyData({ ...companyData, emailAddress: e.target.value })
+              setEditCompanyData({ ...companyDataToEdit, emailAddress: e.target.value })
             }
             className="form-input"
             required
@@ -129,4 +128,4 @@ const EditCompanyModalDialog = ({
   );
 };
 
-export default CreateCompanyModalDialog;
+export default EditCompanyModalDialog;

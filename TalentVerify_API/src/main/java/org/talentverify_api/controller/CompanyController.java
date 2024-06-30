@@ -30,9 +30,9 @@ public class CompanyController {
     }
 
 
-    @PatchMapping("/updateCompany")
-    public ResponseEntity updateCompany(){
-        return ResponseEntity.ok().build();
+    @PostMapping("/updateCompany")
+    public List<CompanyEntity> updateCompany(@RequestBody List<CompanyEntity> companies){
+        return (List<CompanyEntity>) companyRepository.saveAll(companies);
     }
 
 

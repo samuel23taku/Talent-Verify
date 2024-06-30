@@ -34,12 +34,16 @@ const companyReducer = (state = initialState.companies, action) => {
       };
       return data;
     case actions.UPDATE_COMPANY_SUCCESS:
+      console.log("Update success payload is ",action.payload)
       return {
         ...state,
         loading: false,
-        data: state.data.map((company) =>
-          company.id === action.payload.id ? action.payload : company
-        ),
+        data: state.data.map(existingCompany => {
+          const updatedCompany = action.payload.find(
+            newCompany => newCompany.companyId === existingCompany.companyId
+          );
+          return updatedCompany ? { ...existingCompany, ...updatedCompany } : existingCompany;
+        })
       };
     case actions.DELETE_COMPANY_SUCCESS:
       return {
