@@ -8,7 +8,6 @@ const CreateEmployeeModalDialog = ({
   handleSubmit,
   employeeData,
   setEmployeeData,
-  handleFileUpload,
 }) => {
   return (
     <Modal

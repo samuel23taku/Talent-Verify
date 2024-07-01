@@ -115,7 +115,6 @@ const employeesReducer = (state = initialState.employees, action) => {
       return { ...state, loading: true, error: null };
     case actions.FETCH_EMPLOYEES_SUCCESS:
       let value = { ...state, loading: false, data: action.payload };
-      console.log("Value is ",value)
       return value;
     case actions.CREATE_EMPLOYEE_SUCCESS:
       return {

@@ -178,9 +178,9 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
           Create Company
         </button>
         <h1></h1>
-        <FileSelectButton buttonClassType={"bulk-entry-button"}  title={"Bulk Create Companies"} onFileSelect={handleCreateCompaniesFileUpload} />
+        <FileSelectButton buttonClassType={"bulk-entry-button"}  title={"Bulk Create Companies"} id={1} onFileSelect={handleCreateCompaniesFileUpload} />
         <h1></h1>
-        <FileSelectButton title={"Bulk Update Companies (.json)"} buttonClassType={'bulk-update-button'}  onFileSelect={handleUpdateCompaniesFileUpload} />
+        <FileSelectButton title={"Bulk Update Companies (.json)"} id={2} buttonClassType={'bulk-update-button'}  onFileSelect={handleUpdateCompaniesFileUpload} />
     {/*   <input
           type="file"
           accept=".json"

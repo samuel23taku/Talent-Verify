@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
-
-const FileSelectButton = ({ title,onFileSelect,buttonClassType }) => {
-  const [fileName, setFileName] = useState('');
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setFileName(file.name);
-      onFileSelect(file);
-    }
-  };
-
+const FileSelectButton = ({ title, onFileSelect, buttonClassType,id }) => {
   return (
     <div className={buttonClassType}>
       <input
         type="file"
         accept=".json"
-        id="file-upload"
-        style={{ display: 'none' }}
+        id={`${id}`}
+        style={{ display: "none" }}
         onChange={onFileSelect}
       />
-      <label htmlFor="file-upload" className="custom-file-upload">
-        {fileName || title}
+      <label htmlFor={`${id}`} className="custom-file-upload">
+        {title}
       </label>
     </div>
   );

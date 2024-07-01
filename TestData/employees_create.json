@@ -1,0 +1,39 @@
+[
+{
+    "employeeId": "234sdf",
+    "name": "Justin Gaetje",
+    "role": "Contender",
+    "dateStartedRole": "2024-07-30",
+    "dateLeftRole": "",
+    "dutiesInRole": "Defend belt",
+    "departmentId": 1
+}
+,
+  {
+    "employeeId": "234sdf",
+    "name": "Justin Gaetje",
+    "role": "Contender",
+    "dateStartedRole": "2024-07-30",
+    "dateLeftRole": "",
+    "dutiesInRole": "Defend belt",
+    "departmentId": 1
+  },
+  {
+    "employeeId": "123abc",
+    "name": "Conor McGregor",
+    "role": "Champion",
+    "dateStartedRole": "2022-01-01",
+    "dateLeftRole": "2023-12-31",
+    "dutiesInRole": "Defend title",
+    "departmentId": 1
+  },
+  {
+    "employeeId": "456def",
+    "name": "Khabib Nurmagomedov",
+    "role": "Retired",
+    "dateStartedRole": "2018-01-01",
+    "dateLeftRole": "2020-12-31",
+    "dutiesInRole": "Train and mentor",
+    "departmentid": 1
+  }
+]
