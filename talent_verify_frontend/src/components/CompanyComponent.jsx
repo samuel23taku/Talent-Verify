@@ -23,7 +23,9 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
     useState(false);
   const [isEditCompanyModalOpen, setIsEditCompanyDialog] = useState(false);
 
-  const [jsonData, setJsonData] = useState(null);
+  const [jsonData, setCreateCompaniesJsonData] = useState(null);
+
+  const [updateCompaniesJsonData, setUpdateCompaniesJsonData] = useState(null);
 
   const [editCompanyData, setEditCompanyData] = useState({
     registrationNumber: 0,
@@ -81,7 +83,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
   };
 
   // Bulk upload company
-  const handleFileUpload = (event) => {
+  const handleCreateCompaniesFileUpload = (event) => {
     let file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
@@ -89,13 +91,11 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
       reader.onload = (e) => {
         try {
           const jsonContent = JSON.parse(e.target.result);
-          setJsonData(jsonContent);
+          setCreateCompaniesJsonData(jsonContent);
           createCompany(dispatch, jsonContent);
-          setIsCreateCompanyDialogOpen(false);
         } catch (error) {
           alert("Error parsing JSON:", error);
-          setJsonData(null);
-          setIsCreateCompanyDialogOpen(false);
+          setCreateCompaniesJsonData(null);
         }
       };
       reader.readAsText(file);
@@ -103,6 +103,28 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
       console.log("File is empty ", file);
     }
   };
+
+    // Bulk upload company
+    const handleUpdateCompaniesFileUpload = (event) => {
+      let file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+  
+        reader.onload = (e) => {
+          try {
+            const jsonContent = JSON.parse(e.target.result);
+            setUpdateCompaniesJsonData(jsonContent);
+            updateCompany(dispatch, jsonContent);
+          } catch (error) {
+            alert("Error parsing JSON:", error);
+            setCreateCompaniesJsonData(null);
+          }
+        };
+        reader.readAsText(file);
+      } else {
+        console.log("File is empty ", file);
+      }
+    };
 
   if (loadingCompanies) {
     return <div>Loading...</div>;
@@ -156,9 +178,9 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
           Create Company
         </button>
         <h1></h1>
-        <FileSelectButton buttonClassType={"bulk-entry-button"}  title={"Bulk Create Companies"} onFileSelect={handleFileUpload} />
+        <FileSelectButton buttonClassType={"bulk-entry-button"}  title={"Bulk Create Companies"} onFileSelect={handleCreateCompaniesFileUpload} />
         <h1></h1>
-        <FileSelectButton title={"Bulk Update Companies (.json)"} buttonClassType={'bulk-update-button'}  onFileSelect={() => {}} />
+        <FileSelectButton title={"Bulk Update Companies (.json)"} buttonClassType={'bulk-update-button'}  onFileSelect={handleUpdateCompaniesFileUpload} />
     {/*   <input
           type="file"
           accept=".json"
@@ -173,7 +195,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
         handleSubmit={handleSubmit}
         companyData={companyData}
         setCompanyData={setCompanyData}
-        handleFileUpload={handleFileUpload}
+        handleFileUpload={handleCreateCompaniesFileUpload}
       />
       <EditCompanyModalDialog
         isOpen={isEditCompanyModalOpen}
@@ -181,7 +203,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
         handleSubmitCompanyEdits={handleSubmitCompanyEdits}
         companyDataToEdit={editCompanyData}
         setEditCompanyData={setEditCompanyData}
-        handleFileUpload={handleFileUpload}
+        handleFileUpload={handleUpdateCompaniesFileUpload}
       />
     </div>
   );

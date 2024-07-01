@@ -104,18 +104,6 @@ const EditCompanyModalDialog = ({
             required
           />
         </div>
-        <div className="form-label">
-          <label className="label-text">Email Address:</label>
-          <input
-            type="email"
-            value={companyDataToEdit.emailAddress}
-            onChange={(e) =>
-              setEditCompanyData({ ...companyDataToEdit, emailAddress: e.target.value })
-            }
-            className="form-input"
-            required
-          />
-        </div>
         <button type="submit" className="form-input">Submit</button>
       
       </form>
