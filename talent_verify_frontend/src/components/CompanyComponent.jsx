@@ -129,7 +129,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
                 onClick={() => handleSelectCompany(company)}
               >
                 {company.companyName}
-                <button
+                <button className="edit-button"
                   onClick={(e) => {
                     // e.stopPropagation();
                     setIsEditCompanyDialog(true);
@@ -137,7 +137,7 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
                 >
                   Edit
                 </button>
-                <button
+                <button className="delete-button"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteCompany(company);
@@ -151,11 +151,20 @@ const CompanyComponent = ({ selectedCompany, setSelectedCompany }) => {
         ) : (
           <div>No companies available.</div>
         )}
-        <button onClick={() => setIsCreateCompanyDialogOpen(true)}>
+        <hr/>
+        <button className="single-entry-button" onClick={() => setIsCreateCompanyDialogOpen(true)}>
           Create Company
         </button>
         <h1></h1>
-        <FileSelectButton title={"Bulk Update Companies"} onFileSelect={() => {}} />
+        <FileSelectButton buttonClassType={"bulk-entry-button"}  title={"Bulk Create Companies"} onFileSelect={handleFileUpload} />
+        <h1></h1>
+        <FileSelectButton title={"Bulk Update Companies (.json)"} buttonClassType={'bulk-update-button'}  onFileSelect={() => {}} />
+    {/*   <input
+          type="file"
+          accept=".json"
+          onChange={handleFileUpload}
+          className="form-input"
+        /> */}
       </div>
       <CreateCompanyModalDialog
         isOpen={isCreateCompanyModalOpen}

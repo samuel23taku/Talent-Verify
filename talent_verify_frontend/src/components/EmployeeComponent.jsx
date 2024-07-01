@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createEmployee, deleteEmployee, updateEmployee } from "../services/employee_service";
 import EditEmployeeModalDialog from "./Dialogs/EditDialogs/EditEmployeeDialog";
+import FileSelectButton from "./Buttons/FileSelectButton";
 const EmployeeComponent = ({selectedDepartment }) => {
   const dispatch = useDispatch();
   const [isEmployeeModalOpen, setIsEmployeeModalOpen] = useState(false);
@@ -93,7 +94,7 @@ const EmployeeComponent = ({selectedDepartment }) => {
         {employees.map((employee, index) => (
           <li key={index} className="employee-item">
             {employee.name}
-            <button
+            <button className="delete-button"
                   onClick={(e) => {
                     e.stopPropagation();
                     handleDeleteEmployee(employee);
@@ -101,10 +102,11 @@ const EmployeeComponent = ({selectedDepartment }) => {
                 >
                   Delete
                 </button>
-            <button onClick={()=>{
+            <button   onClick={()=>{
               setSelectedEmployee(employee);
               handleUpdateEmployee(employee);
-            }} className="employee-button">Edit</button>
+            }} className="edit-button">Edit</button>
+
           </li>
         ))}
       </ul>
@@ -128,11 +130,16 @@ const EmployeeComponent = ({selectedDepartment }) => {
       />
 
 
-    <button
+    <button className="single-entry-button"
           onClick={()=>{handleOpenEmployeeModal()}}
         >
           Add New employee
         </button>
+        <h1></h1>
+        <FileSelectButton title={"Bulk Create Employees (json)"} buttonClassType={'bulk-entry-button'}  onFileSelect={() => {}} />
+        <h1></h1>
+        <FileSelectButton title={"Bulk Update Employees"} buttonClassType={'bulk-update-button'}  onFileSelect={() => {}} />
+
     </div>
   );
 };

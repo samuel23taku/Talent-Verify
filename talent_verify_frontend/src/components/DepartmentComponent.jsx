@@ -91,7 +91,7 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
                   >
                     Edit
                   </button> */}
-                  <button
+                  <button className="delete-button"
                     onClick={(e) => {
                       e.stopPropagation();
                       handleDeleteDepartment(department);
@@ -102,7 +102,7 @@ const DepartmentComponent = ({ selectedCompany,selectedDepartment,setSelectedDep
                 </li>
               ))}
             </ul>
-            <button
+            <button className="single-entry-button"
               onClick={() =>
                 handleCreateDepartment({
                   name: "New Department",
